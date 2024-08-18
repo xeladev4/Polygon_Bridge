@@ -1,15 +1,23 @@
-// SPDX-License-Identifier: UNLICENSED 
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.20;
 
-import "erc721a/contracts/ERC721A.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract XelaNFT is ERC721A {
+contract XelaNFT is ERC721, ERC721Burnable, ERC721Enumerable, Ownable {
     uint8 public maxSupply = 5;
+    uint256 public nextTokenId = 0;
 
-    constructor() ERC721A("XelaNFT", "XNFT") {}
+    constructor() ERC721("XelaNFT", "XNFT") {}
 
     function safeMint(uint8 _quantity) external payable {
-        _safeMint(msg.sender, _quantity);
+        require(nextTokenId + _quantity <= maxSupply, "Exceeds max supply");
+        for (uint8 i = 0; i < _quantity; i++) {
+            _safeMint(msg.sender, nextTokenId);
+            nextTokenId++;
+        }
     }
 
     function _baseURI() internal pure override returns (string memory) {
@@ -20,7 +28,11 @@ contract XelaNFT is ERC721A {
         return "A classic design with wide blue and red stripes, featuring the club's old crest on the chest";
     }
 
-    function balanceOf(address owner) public view override returns (uint256) {
-        return super.balanceOf(owner);
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal override(ERC721, ERC721Enumerable) {
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, ERC721Enumerable) returns (bool) {
+        return super.supportsInterface(interfaceId);
     }
 }

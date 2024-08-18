@@ -1,13 +1,13 @@
 const hre = require("hardhat");
 require("dotenv").config();
 
-const { CONTRACT_ADDRESS, BRIDGE_ADDRESS } = process.env;
+const { ACCOUNT_ADDRESS, BRIDGE_ADDRESS } = process.env;
 
 async function main() {
   const XelaNFT = await hre.ethers.getContractFactory("XelaNFT");
-  const xelaNFT = XelaNFT.attach(CONTRACT_ADDRESS);
+  const xelaNFT = XelaNFT.attach(BRIDGE_ADDRESS);
 
-  const balance = await xelaNFT.balanceOf(BRIDGE_ADDRESS); // Use BRIDGE_ADDRESS after successful bridging
+  const balance = await xelaNFT.balanceOf(ACCOUNT_ADDRESS);
   console.log("Balance: ", balance.toString());
 }
 

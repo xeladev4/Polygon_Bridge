@@ -6,7 +6,7 @@ const { ACCOUNT_ADDRESS, CONTRACT_ADDRESS, fxERC721RootAddress } = process.env;
 
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying contracts with the account:", deployer);
+  // console.log("Deploying contracts with the account:", deployer);
   const XelaNFTFactory = await hre.ethers.getContractFactory(
     "XelaNFT"
   );

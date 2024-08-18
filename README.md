@@ -20,6 +20,6 @@ This project demonstrates how to use the fxPortal contracts to transfer ERC721 t
 7. Wait 20-30ish minutes for tokens to show on polygon account
 8. Use [polyscan.com](https://amoy.polygonscan.com/) to check your account for the tokens. Once they arrive, you can click on the transaction to get the contract address for polygon.
 9. Use this polygon contract address for your getBalance script's tokenAddress
-10.Run npx hardhat run scripts/xelaNFT/getBalance.js --network sepolia to see the new polygon balance
+10.Run npx hardhat run scripts/xelaNFT/getBalance.js --network amoy to see the new polygon balance
 
-https://www.loom.com/share/6f853233955a4bc892cb31352282d86c
+https://www.loom.com/share/efe638170d394f0a9febc6853b81c371
